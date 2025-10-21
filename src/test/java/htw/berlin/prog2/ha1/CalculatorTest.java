@@ -108,7 +108,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display the correct % of the didgit")
+    @DisplayName("should display the correct % of the digit")
     void testPercent() {
         Calculator calc = new Calculator();
 
@@ -131,6 +131,79 @@ class CalculatorTest {
         calc.pressUnaryOperationKey("1/x");
 
         String expected = "0.25";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display the correct result after adding three positive multi-digit numbers")
+    void testMultipleAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should add two negative numbers correctly")
+    void testNegativeSubtraction() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "-70";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should allow dot input first and display 0.x on the display")
+    void testDotsEqualsZeroFirstInput() {
+        Calculator calc = new Calculator();
+
+        calc.pressDotKey();
+        calc.pressDigitKey(6);
+
+        String expected = "0.6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should only display the first 9 digits inputs, not additional")
+    void testMaxDigitsDisplay() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(6);
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(0);
+
+        String expected = "123456789";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
