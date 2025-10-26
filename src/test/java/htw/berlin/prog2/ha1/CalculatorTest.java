@@ -155,6 +155,26 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("should display the correct result after adding multiple operations")
+    void testMultipleOperationKeys() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     @DisplayName("should add two negative numbers correctly")
     void testNegativeSubtraction() {
         Calculator calc = new Calculator();
@@ -223,6 +243,24 @@ class CalculatorTest {
         calc.pressEqualsKey();
 
         String expected = "33.3333333";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should repeat the operation")
+    void testMultipleEqualFunction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "7";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
