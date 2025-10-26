@@ -203,6 +203,7 @@ class CalculatorTest {
         calc.pressDigitKey(9);
         calc.pressDigitKey(0);
 
+
         String expected = "123456789";
         String actual = calc.readScreen();
 
