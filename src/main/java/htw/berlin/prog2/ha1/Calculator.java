@@ -97,7 +97,13 @@ public class Calculator {
      * Trennzeichen angegeben und daher als Dezimalziffern interpretiert.
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
-    public void pressDotKey() {if(!screen.contains(".")) screen = screen + ".";}
+    public void pressDotKey() {
+        if (screen.isEmpty()) {
+            screen = "0.";
+        } else if (!screen.contains(".")) {
+            screen += ".";
+        }
+    }
 
     /**
      * Empfängt den Befehl der gedrückten Vorzeichenumkehrstaste ("+/-").
